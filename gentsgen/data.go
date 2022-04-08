@@ -1,6 +1,6 @@
 package main
 
-var keywords = []string{"break", "default", "function", "else", "export", "const", "class", "type", "continue", "var", "new", "interface", "namespace"}
+var keywords = []string{"break", "default", "function", "else", "export", "import", "const", "class", "type", "continue", "var", "new", "interface", "namespace"}
 
 var identifiers = []string{"boolean", "number", "string", "bigint", "any", "undefined"}
 

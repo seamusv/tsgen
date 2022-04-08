@@ -2,7 +2,6 @@ package tsgen
 
 import (
 	"bytes"
-	"fmt"
 )
 
 type Option func(f *File) error
@@ -72,15 +71,7 @@ func (f *File) GoString() string {
 	if err := f.Render(buf); err != nil {
 		panic(err)
 	}
-
-	b, err := f.formatter(buf.Bytes())
-	if err != nil {
-		fmt.Println("Code:")
-		fmt.Println(buf.String())
-		panic(err)
-	}
-
-	return string(b)
+	return buf.String()
 }
 
 type File struct {

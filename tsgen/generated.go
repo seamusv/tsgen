@@ -1158,6 +1158,31 @@ func (s *Statement) Export() *Statement {
 	return s
 }
 
+// Import renders the import keyword.
+func Import() *Statement {
+	// notest
+	return newStatement().Import()
+}
+
+// Import renders the import keyword.
+func (g *Group) Import() *Statement {
+	// notest
+	s := Import()
+	g.items = append(g.items, s)
+	return s
+}
+
+// Import renders the import keyword.
+func (s *Statement) Import() *Statement {
+	// notest
+	t := token{
+		content: "import",
+		typ:     keywordToken,
+	}
+	*s = append(*s, t)
+	return s
+}
+
 // Const renders the const keyword.
 func Const() *Statement {
 	// notest

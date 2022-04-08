@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"sort"
 	"strings"
 )
@@ -11,6 +12,17 @@ import (
 type Code interface {
 	render(f *File, w io.Writer, s *Statement) error
 	isNull(f *File) bool
+}
+
+func (f *File) Save(filename string) error {
+	buf := &bytes.Buffer{}
+	if err := f.Render(buf); err != nil {
+		return err
+	}
+	if err := ioutil.WriteFile(filename, buf.Bytes(), 0644); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (f *File) Render(w io.Writer) error {
@@ -36,11 +48,16 @@ func (f *File) Render(w io.Writer) error {
 		return err
 	}
 
-	if _, err := w.Write(source.Bytes()); err != nil {
+	if _, err := source.Write(body.Bytes()); err != nil {
 		return err
 	}
 
-	if _, err := w.Write(body.Bytes()); err != nil {
+	formatted, err := f.formatter(source.Bytes())
+	if err != nil {
+		return err
+	}
+
+	if _, err := w.Write(formatted); err != nil {
 		return err
 	}
 
