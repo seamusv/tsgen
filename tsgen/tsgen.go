@@ -76,7 +76,7 @@ func (f *File) renderImports(w io.Writer) error {
 	for _, path := range sortedPaths {
 		def := f.imports[path]
 		if def.isDefault {
-			if _, err := fmt.Fprintf(w, "import * as %s from '%s';\n", def.name, path); err != nil {
+			if _, err := fmt.Fprintf(w, "import %s from '%s';\n", def.name, path); err != nil {
 				return err
 			}
 		} else {
