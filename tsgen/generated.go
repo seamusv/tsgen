@@ -1208,6 +1208,31 @@ func (s *Statement) Const() *Statement {
 	return s
 }
 
+// Let renders the let keyword.
+func Let() *Statement {
+	// notest
+	return newStatement().Let()
+}
+
+// Let renders the let keyword.
+func (g *Group) Let() *Statement {
+	// notest
+	s := Let()
+	g.items = append(g.items, s)
+	return s
+}
+
+// Let renders the let keyword.
+func (s *Statement) Let() *Statement {
+	// notest
+	t := token{
+		content: "let",
+		typ:     keywordToken,
+	}
+	*s = append(*s, t)
+	return s
+}
+
 // Class renders the class keyword.
 func Class() *Statement {
 	// notest
