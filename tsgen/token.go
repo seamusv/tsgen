@@ -51,7 +51,7 @@ func (t token) render(f *File, w io.Writer, s *Statement) error {
 			}
 		case float32, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, uintptr:
 			// other built-in types need specific type info
-			out = fmt.Sprintf("%T(%#v)", t.content, t.content)
+			out = fmt.Sprintf("%#v", t.content)
 		case complex64:
 			// fmt package already renders parenthesis for complex64
 			out = fmt.Sprintf("%T%#v", t.content, t.content)
